@@ -1,0 +1,149 @@
+*{
+  color: #fff;
+margin:0;
+padding: 0;
+text-decoration: none;
+font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ;
+box-sizing: border-box;
+outline: none;
+background: url(bg2.jpg);
+}
+
+body{ 
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+.container{width: 360px;
+  background: #000;
+  box-shadow: 0 0 8px rgba(120, 107, 107, 0.6);
+  opacity: 0.99;
+
+}
+
+nav{
+  
+	font-family: "Sofia", sans-serif;
+	font-size: 30px;
+	background-color: rgb(254, 252, 250);
+	text-shadow: 1px 3px 6px #989292;
+  }
+  
+  nav ul{
+	  display: flex;
+	  align-items: center;
+	  list-style-type: none;
+	  height: 65px;
+	  background-color: black;
+	
+  }
+	  .Brand img{
+		width:44px;
+		padding:  8px;;
+	
+	}
+	.Brand{
+		display: flex;
+		align-items: center;
+		font-weight: bolder;
+		font-size: 1.3rem;
+	}
+nav ul li{
+		padding: 0 12px;
+		font-size: 20px;
+    color: #fff;
+    text-align: none;
+		transition: 0.4s;
+	}
+	
+nav ul li:hover{
+	transform :scale(1.1);
+	z-index:1;
+	}
+
+
+
+
+
+section{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  filter: blur(0px) brightness(80%);
+}
+.container form{
+  width: 100%;
+  text-align: center;
+  padding: 25px 20px;
+
+}
+form h1{
+  color: rgb(240, 245, 240);
+  padding: 10px 0;
+}
+
+form .id{
+  position: relative;
+}
+.id i{
+  position: absolute;
+  font-size: 20px;
+  top:50%;
+  right: 20px;
+  transform: translateY(-50%);
+}
+form input{
+  width:100%;
+  height: 50px;
+  margin: 4px 0;
+  border: 1px solid #0b8622;
+  border-radius: 4px;
+  background: #181717;
+  padding: 0 15px;
+  font-size: 20px;
+  padding-right: 45px;
+
+}
+
+form textarea{
+  padding: 5px 15px;
+  border: 1px solid #201d1d;
+  border-radius: 4px;
+  background: #181717;
+  padding: 0 15px;
+  font-size: 20px;
+  width: 100%;
+  margin: 4px 0;
+
+}
+form button{
+  margin-top: 5px;
+  border: none;
+  background:#0b7123;
+  color:rgb(13, 13, 13);
+  padding: 10px 0;
+  width: 100%;
+  font-size: 20px;
+  font-weight: 800;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+form input:focus,form textarea:focus{
+  border: 1px solid #1da113;
+  color:#817676;
+  transition: all 0.3s ease;
+}
+
+form input:focus::placeholder,form textarea:focus::placeholder{
+  padding-left: 3px;
+  color:#1da113;
+  transition: all 0.3s ease;
+}
+form focus +i{
+  color:#1da113;
+  transition: all 0.3s ease;
+}

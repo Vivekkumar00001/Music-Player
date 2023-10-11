@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="lyrics.css"/>
+    <title>Lyrics Search App</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap'); 
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+*:focus {
+  outline: none;
+}
+
+body{
+    background-color: #ffffff;
+    font-family: 'Open Sans', sans-serif;
+}
+
+h1,h2{
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+/* Common CSS */
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    min-height: 100vh;
+    max-width: 600px; 
+    margin: 0 auto;
+}
+
+.box{
+    padding: 30px;
+    display: flex;
+    background: #fff;
+    box-shadow: 0 8.9098px 36.6557px rgb(67 67 67 / 6%);
+    border-radius: 10.9822px;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+}
+
+
+#form input {
+    padding: 12px;
+    border: none;
+    background-color: #F6F6F5;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    min-width: 250px;
+}
+
+.btn {
+    background: linear-gradient(to right, #EA0909, #bd1e26);
+    background-color: #bd1e26;
+    border: none;
+    color: #ffffff;
+    padding: 6px 21px;
+    display: inline-block;
+    border-radius: 4px;
+    font-size: 13.5px;
+    text-decoration: none;
+    margin-top: 8px;
+    letter-spacing: 0.04px;
+    text-transform: uppercase;
+    cursor: pointer;
+    min-height: 40px;
+}
+.btn:hover {
+    background-color: #bd1e26;
+    background: linear-gradient(to right, #bd1e26, #EA0909);
+    color: #ffffff;
+}
+
+.result.box{
+    padding: 0px;
+    margin-top: 20px;
+}
+.full-lyrics,
+.result ul{
+    padding: 20px;
+}
+.result ul.song-list li {
+    list-style: none;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    border-bottom: 1px dashed #ddd;
+    padding-bottom: 15px;
+}
+.result ul.song-list li img {
+    max-width: 120px;
+    float: left;
+    margin-right: 15px;
+    border-radius: 4px;
+}
+.result ul.song-list li span{
+    background-color: #ddd;
+    border-color: #ddd;
+    color: #222;
+    padding: 6px 21px;
+    display: inline-block;
+    border-radius: 4px;
+    font-size: 12px;
+    text-decoration: none;
+    margin-top: 5px;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.result ul.song-list li span:hover {
+    background-color: #bd1e26;
+    background: linear-gradient(to right, #bd1e26, #EA0909);
+    color: #ffffff;
+}
+
+@media only screen and (max-width: 600px) {
+
+}
+</style>
+
+
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <h1>Search Lyrics</h1>
+            <form id="form">
+                <input type="search" id="search" placeholder="Enter artist name or song title...">
+                <button class="btn">Search</button>
+            </form>
+        </div>
+        <section class="result box" id="result"></section>
+    </div>
+    <script>
+
+
+const form = document.getElementById('form')
+const search = document.getElementById('search')
+const result = document.getElementById('result')
+
+
+/// api URL ///
+const apiURL = 'https://api.lyrics.ovh';
+
+
+/// adding event listener in form
+
+form.addEventListener('submit', e=> {
+    e.preventDefault();
+    searchValue = search.value.trim()
+
+    if(!searchValue){
+        alert("There is nothing to search")
+    }
+    else{ 
+        searchSong(searchValue)
+    }
+})
+
+
+//search song 
+async function searchSong(searchValue){
+    const searchResult = await fetch(`${apiURL}/suggest/${searchValue}`)
+    const data = await searchResult.json();
+
+    // console.log(finaldata)
+    showData(data)
+}
+
+
+
+//display final result in DO
+function showData(data){
+  
+    result.innerHTML = `
+    <ul class="song-list">
+      ${data.data
+        .map(song=> `<li>
+                    <div>
+                        <img src="${song.artist.picture}" alt="Artist image">
+                        <strong>${song.artist.name}</strong> - ${song.title} 
+                    </div>
+                    <span data-artist="${song.artist.name}" data-songtitle="${song.title}"> get lyrics</span>
+                </li>`
+        )
+        .join('')}
+    </ul>
+  `;
+}
+
+
+
+
+//event listener in get lyrics button
+result.addEventListener('click', e=>{
+    const clickedElement = e.target;
+
+    //checking clicked elemet is button or not
+    if (clickedElement.tagName === 'SPAN'){
+        const artist = clickedElement.getAttribute('data-artist');
+        const songTitle = clickedElement.getAttribute('data-songtitle');
+        
+        getLyrics(artist, songTitle)
+    }
+})
+
+// Get lyrics for song
+async function getLyrics(artist, songTitle) {
+    const res = await fetch(`${apiURL}/v1/${artist}/${songTitle}`);
+    const data = await res.json();
+  
+    const lyrics = data.lyrics.replace(/(\r\n|\r|\n)/g, '<br>');
+  
+    result.innerHTML = `<div class="full-lyrics"><h2><strong>${artist}</strong> - ${songTitle}</h2>
+    <p>${lyrics}</p></div>`;
+  
+  }
+
+
+
+    </script>
+        
+    </script>
+</body>
+</html>
