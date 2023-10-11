@@ -9,13 +9,13 @@ let gif= document.getElementById('gif');
 let songitems=Array.from(document.getElementsByClassName('songitem'));
 let songs=[
 
-    {songnames: "Let's Always Blue-Legion",filePath:"songs/1.mp3" , coverPath:"covers/1.jpg"},
-    {songnames: "Trap Cartel",filePath:"songs/2.mp3" , coverPath:"covers/2.jpg"},
-    {songnames: "They Mad-Lowenki Pesci",filePath:"songs/3.mp3" , coverPath:"covers/3.jpg"},
-    {songnames: "Rich the Kid-Plug Walk",filePath:"songs/4.mp3" , coverPath:"covers/4.jpg"},
-    {songnames: "Back It Up",filePath:"songs/5.mp3" , coverPath:"covers/6.jpg"},
-    {songnames: "Ambient Piano &amp,Strings",filePath:"songs/6.mp3" , coverPath:"covers/13.jpg"},
-    {songnames: "Water-Fluid",filePath:"songs/7.mp3" , coverPath:"covers/12.jpg"},
+    {songnames: "Let's Always Blue-Legion",filePath:"1.mp3" , coverPath:"1.jpg"},
+    {songnames: "Trap Cartel",filePath:"2.mp3" , coverPath:"2.jpg"},
+    {songnames: "They Mad-Lowenki Pesci",filePath:"3.mp3" , coverPath:"3.jpg"},
+    {songnames: "Rich the Kid-Plug Walk",filePath:"4.mp3" , coverPath:"4.jpg"},
+    {songnames: "Back It Up",filePath:"5.mp3" , coverPath:"6.jpg"},
+    {songnames: "Ambient Piano &amp,Strings",filePath:"6.mp3" , coverPath:"13.jpg"},
+    {songnames: "Water-Fluid",filePath:"7.mp3" , coverPath:"12.jpg"},
 
 ];
 
